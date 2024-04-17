@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:tv_shows/pages/show_info.dart';
 
@@ -42,6 +41,7 @@ class _HomePageState extends State<HomePage> {
           }
           final List<dynamic> data = snapshot.data as List<dynamic>;
 
+          //Body of UI ,Grid View for each Shows
           return Padding(
             padding: const EdgeInsets.all(2),
             child: GridView.builder(
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                 final show = data[index];
 
                 return Padding(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   child: Container(
                     child: Card(
                       elevation: 15,
@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        ShowInfo(jsondata: show)),
+                                        ShowInfo(showdata: show)),
                               );
                             }),
                           ),
