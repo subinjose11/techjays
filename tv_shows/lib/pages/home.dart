@@ -13,8 +13,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Future<List<dynamic>> getShows() async {
     try {
-      final res = await http.get(Uri.parse('https://api.tvmaze.com/shows'));
-      final List<dynamic> data = jsonDecode(res.body);
+      final response =
+          await http.get(Uri.parse('https://api.tvmaze.com/shows'));
+      final List<dynamic> data = jsonDecode(response.body);
       return data;
     } catch (e) {
       throw e.toString();
@@ -39,7 +40,7 @@ class _HomePageState extends State<HomePage> {
           if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
           }
-          final List<dynamic> data = snapshot.data as List<dynamic>;
+          final List<dynamic> everyShow = snapshot.data as List<dynamic>;
 
           //Body of UI ,Grid View for each Shows
           return Padding(
@@ -48,9 +49,9 @@ class _HomePageState extends State<HomePage> {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
               ),
-              itemCount: data.length,
+              itemCount: everyShow.length,
               itemBuilder: (context, index) {
-                final show = data[index];
+                final eachShow = everyShow[index];
 
                 return Padding(
                   padding: const EdgeInsets.all(8),
@@ -62,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                             Stack(alignment: Alignment.bottomCenter, children: [
                           Ink.image(
                             image: NetworkImage(
-                              "${show['image']['medium']}",
+                              "${eachShow['image']['medium']}",
                             ),
                             fit: BoxFit.fill,
                             child: InkWell(onTap: () async {
@@ -70,12 +71,12 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        ShowInfo(showdata: show)),
+                                        ShowInfo(showdata: eachShow)),
                               );
                             }),
                           ),
                           Text(
-                            "${show['name']}",
+                            "${eachShow['name']}",
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,

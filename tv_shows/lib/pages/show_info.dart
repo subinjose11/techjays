@@ -86,7 +86,7 @@ class _ShowInfoState extends State<ShowInfo> {
                 ],
               ),
               const SizedBox(height: 12),
-              //About Show
+              //Story line of the Show
               Text(
                 stripHtmlTags('${widget.showdata["summary"]}'),
                 style: const TextStyle(
