@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:tv_shows/pages/show_info.dart';
 
+import '../modules/show_module.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -51,7 +53,8 @@ class _HomePageState extends State<HomePage> {
               ),
               itemCount: everyShow.length,
               itemBuilder: (context, index) {
-                final eachShow = everyShow[index];
+                final eachshow = everyShow[index];
+                final show = ShowModule.fromJson(eachshow);
 
                 return Padding(
                   padding: const EdgeInsets.all(8),
@@ -63,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                             Stack(alignment: Alignment.bottomCenter, children: [
                           Ink.image(
                             image: NetworkImage(
-                              "${eachShow['image']['medium']}",
+                              "${show.image?.medium}",
                             ),
                             fit: BoxFit.fill,
                             child: InkWell(onTap: () async {
@@ -71,12 +74,12 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        ShowInfo(showdata: eachShow)),
+                                        ShowInfo(showdata: eachshow)),
                               );
                             }),
                           ),
                           Text(
-                            "${eachShow['name']}",
+                            "${show.name}",
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tv_shows/modules/show_module.dart';
 
 class ShowInfo extends StatefulWidget {
   final Map<String, dynamic> showdata;
@@ -12,6 +13,9 @@ class ShowInfo extends StatefulWidget {
 class _ShowInfoState extends State<ShowInfo> {
   @override
   Widget build(BuildContext context) {
+    final data = widget.showdata;
+    final show = ShowModule.fromJson(data);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -36,7 +40,7 @@ class _ShowInfoState extends State<ShowInfo> {
                     size: const Size.fromRadius(170),
                     child: Image(
                       image: NetworkImage(
-                        "${widget.showdata['image']['original']}",
+                        "${show.image?.original}",
                       ),
                       fit: BoxFit.fill,
                     ),
@@ -47,7 +51,7 @@ class _ShowInfoState extends State<ShowInfo> {
               // TV Show Tittle
               Center(
                 child: Text(
-                  "${widget.showdata['name']}",
+                  "${show.name}",
                   style: const TextStyle(
                       fontSize: 26, fontWeight: FontWeight.bold),
                 ),
@@ -56,28 +60,28 @@ class _ShowInfoState extends State<ShowInfo> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "${widget.showdata["premiered"]} ".substring(0, 4),
+                    "${show.premiered} ".substring(0, 4),
                     style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w200,
                     ),
                   ),
                   Text(
-                    " | ${widget.showdata["language"]} |",
+                    " | ${show.language} |",
                     style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w200,
                     ),
                   ),
                   Text(
-                    " ${widget.showdata["runtime"]}m |",
+                    " ${show.runtime}m |",
                     style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w200,
                     ),
                   ),
                   Text(
-                    " ${widget.showdata["genres"][0]}",
+                    " ${show.genres?[0]}",
                     style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w200,
@@ -88,7 +92,7 @@ class _ShowInfoState extends State<ShowInfo> {
               const SizedBox(height: 12),
               //Story line of the Show
               Text(
-                stripHtmlTags('${widget.showdata["summary"]}'),
+                stripHtmlTags('${show.summary}'),
                 style: const TextStyle(
                   fontSize: 16,
                 ),
@@ -98,42 +102,43 @@ class _ShowInfoState extends State<ShowInfo> {
               const SizedBox(height: 8),
               TVShowInfo(
                 title: "Network",
-                value: " ${widget.showdata['network']["name"]}",
+                value: " ${show.network?.name}",
               ),
               const SizedBox(height: 8),
               TVShowInfo(
                 title: "Country",
-                value: " ${widget.showdata['network']["country"]["name"]}",
+                value: " ${show.network?.country?.name}",
               ),
               const SizedBox(height: 8),
               TVShowInfo(
                 title: "Schedule",
-                value:
-                    " ${widget.showdata['schedule']["days"][0]} at ${widget.showdata['schedule']["time"]}",
+                value: " ${show.schedule?.days?[0]} at ${show.schedule?.time}",
               ),
               const SizedBox(height: 8),
               TVShowInfo(
                 title: "Status",
-                value: " ${widget.showdata['status']}",
+                value: " ${show.status}",
               ),
               const SizedBox(height: 8),
               TVShowInfo(
                 title: "Show Type",
-                value: " ${widget.showdata['type']}",
+                value: " ${show.type}",
               ),
               const SizedBox(height: 8),
               TVShowInfo(
                 title: "Genres",
-                value: " ${widget.showdata['genres']}",
+                value: " ${show.genres}",
               ),
               const SizedBox(height: 8),
               TVShowInfo(
-                  title: "Rating",
-                  value: " ${widget.showdata['rating']}".substring(2, 12)),
+                title: "Rating",
+                value: " ${show.rating?.average}",
+              ),
               const SizedBox(height: 8),
               TVShowInfo(
-                  title: "Official site",
-                  value: " ${widget.showdata['officialSite']}"),
+                title: "Official site",
+                value: " ${show.officialSite}",
+              ),
               const SizedBox(height: 8),
             ],
           ),
