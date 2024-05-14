@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:verify_number/features/auth_feat/presentation/view/privacy.dart';
+import 'privacy.dart';
 
 class OnBoarding extends StatelessWidget {
   const OnBoarding({super.key});

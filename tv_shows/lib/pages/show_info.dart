@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tv_shows/modules/show_module.dart';
 
 class ShowInfo extends StatefulWidget {
-  final Map<String, dynamic> showdata;
+  final ShowModule showdata;
 
   const ShowInfo({Key? key, required this.showdata}) : super(key: key);
 
@@ -13,8 +13,7 @@ class ShowInfo extends StatefulWidget {
 class _ShowInfoState extends State<ShowInfo> {
   @override
   Widget build(BuildContext context) {
-    final data = widget.showdata;
-    final show = ShowModule.fromJson(data);
+    final show = widget.showdata;
 
     return Scaffold(
       appBar: AppBar(

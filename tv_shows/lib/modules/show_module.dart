@@ -4,11 +4,11 @@ import 'dart:convert';
 part 'show_module.freezed.dart';
 part 'show_module.g.dart';
 
-// List<ShowModule> showModuleFromJson(String str) =>
-//     List<ShowModule>.from(json.decode(str).map((x) => ShowModule.fromJson(x)));
+List<ShowModule> showModuleFromJson(String str) =>
+    List<ShowModule>.from(json.decode(str).map((x) => ShowModule.fromJson(x)));
 
-// String showModuleToJson(List<ShowModule> data) =>
-//     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String showModuleToJson(List<ShowModule> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 @freezed
 class ShowModule with _$ShowModule {
